@@ -22,15 +22,16 @@ install_or_reuse_toolbox() {
 
   echo "---> Installing toolbox"
   mkdir -p "${layer_dir}/bin"
+  mkdir -p /tmp
 
-  if [[ ! -f "${layer_dir}/bin/jq" ]]; then
-    echo "- jq"
-    curl -Ls https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 > "${layer_dir}/bin/jq" \
-      && chmod +x "${layer_dir}/bin/jq"
-  fi
+  # if [[ ! -f "${layer_dir}/bin/jq" ]]; then
+    curl -Ls https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 > "/tmp/bin/jq" \
+      && chmod +x "/tmp/bin/jq"
+
+    cp /tmp/bin/jq "${layer_dir}/bin/jq"
+  # fi
 
   if [[ ! -f "${layer_dir}/bin/yj" ]]; then
-    echo "- yj"
     curl -Ls https://github.com/sclevine/yj/releases/download/v2.0/yj-linux > "${layer_dir}/bin/yj" \
       && chmod +x "${layer_dir}/bin/yj"
   fi
